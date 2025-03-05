@@ -1,0 +1,765 @@
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue';
+
+import face from '@/assets/images/face.png';
+import link from '@/assets/images/link.png';
+import ins from '@/assets/images/ins.png';
+import pic1 from '@/assets/images/pic1.jpg';
+import eyya from '@/assets/images/eyya.jpg';
+import rr1 from '@/assets/images/rr1.png';
+import r2 from '@/assets/images/r2.jpg';
+import rr2 from '@/assets/images/rr2.png';
+import r3 from '@/assets/images/r3.png';
+import rr3 from '@/assets/images/rr3.jpg';
+import r4 from '@/assets/images/r4.png';
+import r5 from '@/assets/images/r5.png';
+import r6 from '@/assets/images/r6.png';
+
+// Reactive state
+const slides = ref([rr3,rr1, rr2, r2, r3, r4, r5, r6]);
+const slideIndex = ref(0);
+const showAll = ref(false);
+const modalVisible = ref(false);
+const modalImg = ref('');
+const currentIndex = ref(0);
+
+// Function to show the next slide
+const nextSlide = () => {
+  slideIndex.value = (slideIndex.value + 1) % slides.value.length;
+};
+
+// Function to show the previous slide
+const prevSlide = () => {
+  slideIndex.value = (slideIndex.value - 1 + slides.value.length) % slides.value.length;
+};
+
+// Function to show all images in a grid
+const showAllImages = () => {
+  showAll.value = true;
+};
+
+// Function to close the grid and return to the slider
+const closeAllImages = () => {
+  showAll.value = false;
+};
+
+// Function to show the modal with the selected image
+const showImage = (index) => {
+  modalImg.value = slides.value[index];
+  currentIndex.value = index;
+  modalVisible.value = true;
+};
+
+// Function to close the modal
+const closeModal = () => {
+  modalVisible.value = false;
+};
+
+// Function to navigate to the previous image in the modal
+const prevImage = () => {
+  currentIndex.value = (currentIndex.value - 1 + slides.value.length) % slides.value.length;
+  modalImg.value = slides.value[currentIndex.value];
+};
+
+// Function to navigate to the next image in the modal
+const nextImage = () => {
+  currentIndex.value = (currentIndex.value + 1) % slides.value.length;
+  modalImg.value = slides.value[currentIndex.value];
+};
+
+// Keyboard navigation for the modal
+const handleKeydown = (event) => {
+  if (!modalVisible.value) return;
+  if (event.key === 'ArrowLeft') prevImage();
+  if (event.key === 'ArrowRight') nextImage();
+  if (event.key === 'Escape') closeModal();
+};
+
+// Attach event listeners
+onMounted(() => {
+  window.addEventListener('keydown', handleKeydown);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeydown);
+});
+
+</script>
+
+<template>
+  <nav class="navbar">
+    <div class="logo">Rhea-Anne</div>
+    <div class="nav-links">
+      <router-link to="/index">HOME</router-link>
+      <router-link to="/about">ABOUT</router-link>
+      <router-link to="/reference">REFERENCE</router-link>
+      <router-link to="/contact">CONTACT</router-link>
+    </div>
+  </nav>
+
+  <div class="main-container">
+        <div class="container">
+            <h1>Hi, I'm Rhea-Anne Danao, a BSIT student at Asia Pacific College.</h1>
+            <!-- Optional: Add a purpose box inside the container -->
+            <div class="purpose-box">
+                <p>Driven by a passion for technology and innovation, I aim to create solutions that make a positive impact on the world. Let's build a better future together!</p>
+            </div>
+        </div>
+    
+        <div class="profile">
+            <img :src="pic1" alt="Profile Picture">
+        </div>
+  </div>
+
+  <!-- Picture Gallery Section -->
+    <div class="gallery-container">
+        <h2>PICTURE GALLERY</h2>
+        <div class="slider">
+            <div class="slides">
+                <div class="slide"><img :src="rr3" alt="Image 1"></div>
+                <div class="slide"><img :src="r2" alt="Image 2"></div>
+                <div class="slide"><img :src="rr1" alt="Image 3"></div>
+                <div class="slide"><img :src="rr2" alt="Image 4"></div>
+                <div class="slide"><img :src="r3" alt="Image 5"></div>
+                <div class="slide"><img :src="r4" alt="Image 6"></div>
+                <div class="slide"><img :src="r5" alt="Image 7"></div>
+                <div class="slide"><img :src="r6" alt="Image 8"></div>
+            </div>
+        </div>
+
+        <!-- Button to Show All Pictures -->
+        <button class="show-all-btn" onclick="showAllImages()">Show All Pictures</button>
+
+        <!-- Full Picture Grid (Hidden by Default) -->
+        <div class="all-pictures">
+            <button class="close-btn" onclick="closeAllImages()">Close</button>
+            <img :src="rr3" alt="Image 1">
+            <img :src="r2" alt="Image 2">
+            <img :src="rr1" alt="Image 3">
+            <img :src="rr2" alt="Image 4">
+            <img :src="r3" alt="Image 5">
+            <img :src="r4" alt="Image 6">
+            <img :src="r5" alt="Image 7">
+            <img :src="r6" alt="Image 8">
+        </div>
+    </div>
+
+    <div class="about-me">
+        <div class="about-image">
+            <img :src="eyya" alt="About Me Image">
+        </div>
+        <div class="about-content">
+            <h1>About Me</h1>
+            <h2>I am a bubbly person, outgoing, and always up for a good time.</h2>
+            <p>
+                I am a proud province girl from Isabela, deeply connected to my roots and inspired by the simplicity and warmth of rural life. Growing up in a province has shaped me into a hardworking, resourceful, and determined individual who values family, culture, and community. My upbringing has taught me the importance of perseverance and embracing challenges with a positive mindset.
+            </p>
+            <button class="read-more-btn">READ MORE</button>
+        </div>
+    </div>
+
+
+    <div class="social-media">
+        <h2>Social Media</h2>
+        <div class="social-links">
+            <a href="https://www.instagram.com/iem_eyya?igsh=OGI1aWdiMXJxMmJk" target="_blank" class="social-link">
+                <img :src="ins" alt="Instagram">
+                <span>Instagram</span>
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61565180164018&mibextid=ZbWKwL" target="_blank" class="social-link">
+                <img :src="face" alt="Facebook">
+                <span>Facebook</span>
+            </a>
+            <a href="http://www.linkedin.com/in/rhea-anne-danao-a420bb289" target="_blank" class="social-link">
+                <img :src="link" alt="LinkedIn">
+                <span>LinkedIn</span>
+            </a>
+        </div>
+    </div>
+
+  <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-nav">
+            <a href="index.html">Home</a>
+            <a href="reference.html">Reference</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-copyright">
+            <p>Copyright © 2025 Rhea-Anne Danao | Powered by Rhea-Anne</p>
+        </div>
+    </footer>
+
+
+</template>
+
+<style scoped>
+/* General Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background: #FAE8E0; /* Soft pink background */
+    color: #333;
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* Navigation Bar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    font-size: 18px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.logo {
+    color: #151314a0;
+    font-family: 'Dancing Script', cursive;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.nav-links a {
+    margin: 0 15px;
+    color: #151314a0;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #F7CAC9;
+}
+
+/* Main Container (Box for Everything) */
+.main-container {
+    max-width: 1200px; /* Adjust as needed */
+    margin: 50px auto; /* Center the container */
+    padding: 20px;
+    background-color: #fff; /* White background */
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    display: flex;
+    align-items: center; /* Vertically center content */
+    justify-content: space-between; /* Space between text and profile image */
+    position: relative;
+}
+
+/* Container for Text */
+.container {
+    max-width: 600px; /* Adjust as needed */
+    padding: 20px;
+}
+
+.container h1 {
+    font-size: 48px;
+    color: #494040;
+    margin-bottom: 20px; /* Space below the heading */
+}
+
+/* Purpose Box (Optional) */
+.purpose-box {
+    background-color: #f9f9f9; /* Light background */
+    border-left: 5px solid #007bff; /* Accent border */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    margin-top: 30px; /* Space between heading and box */
+}
+
+.purpose-box p {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6; /* Improved readability */
+    margin: 0; /* Remove default margin */
+}
+
+/* Profile Image */
+.profile {
+    width: 400px; /* Adjust as needed */
+    height: 400px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid white;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Add shadow for depth */
+}
+
+.profile img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    .main-container {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+        text-align: center; /* Center text */
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 100%; /* Full width on smaller screens */
+    }
+
+    .profile {
+        width: 300px; /* Smaller profile image for tablets */
+        height: 300px;
+        margin-top: 30px; /* Space between text and image */
+    }
+
+    .purpose-box {
+        padding: 15px;
+    }
+
+    .purpose-box p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container h1 {
+        font-size: 36px; /* Smaller heading for mobile */
+    }
+
+    .profile {
+        width: 200px; /* Smaller profile image for mobile */
+        height: 200px;
+    }
+
+    .purpose-box {
+        padding: 10px;
+    }
+
+    .purpose-box p {
+        font-size: 14px;
+    }
+}
+
+.gallery-container {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    padding-bottom: 20px;
+    text-align: center;
+    max-width: 900px; /* Default width for larger screens */
+    margin: 250px auto 0 auto;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    border: 2px solid #ddd;
+}
+
+/* Adjust width for tablets */
+@media (max-width: 1024px) {
+    .gallery-container {
+        max-width: 800px; /* Slightly narrower for tablets */
+    }
+}
+
+/* Adjust width for mobile devices */
+@media (max-width: 768px) {
+    .gallery-container {
+        max-width: 90%; /* Use 90% of the screen width for mobile */
+        margin-top: 150px; /* Reduce top margin for mobile */
+    }
+}
+
+.gallery-container h2 {
+    font-size: 40px;
+    font-weight: bold;
+    color: #151314a0;
+    margin-bottom: 20px;
+}
+
+/* Image Slider */
+.slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+.slide img {
+    width: 100%;
+    height: 400px; /* Fixed height for consistency */
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Show All Button */
+.show-all-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    padding: 12px 24px;
+    align-items: center;
+    font-size: 18px;
+    background-color: #DFA0A0;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transform: translateX(190%); 
+    transition: 0.3s;
+}
+
+.show-all-btn:hover {
+    background-color: #F7CAC9;
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    bottom: 20px; /* Distance from the bottom */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust for exact centering */
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #DFA0A0;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 10; /* Ensure it's above other elements */
+}
+
+.close-btn:hover {
+    background-color: #F7CAC9;
+}
+
+/* Full Picture Grid */
+.all-pictures {
+    display: none; /* Hidden by default */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    justify-content: center;
+    padding: 20px;
+    position: relative; /* Needed for absolute positioning of the close button */
+}
+
+.all-pictures img {
+    width: 100%;
+    height: 250px;
+    border-radius: 10px;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+}
+
+.all-pictures img:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+/* Full Picture Gallery */
+.all-pictures {
+    display: none; /* Hidden by default */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.all-pictures img {
+    width: 100%;
+    height: 250px;
+    border-radius: 10px;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+}
+
+.all-pictures img:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .container {
+        text-align: center;
+        padding: 20px;
+    }
+
+    .profile {
+        position: static;
+        margin: 20px auto;
+        width: 300px;
+        height: 300px;
+    }
+
+    .profile img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .slide img {
+        height: 300px; /* Adjusted height for tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav-links {
+        margin-top: 10px;
+    }
+
+    .profile {
+        width: 250px;
+        height: 250px;
+    }
+
+    .container h1 {
+        font-size: 36px;
+    }
+
+    .slide img {
+        height: 250px; /* Adjusted height for mobile */
+    }
+}
+
+/* About Me Section */
+.about-me {
+    padding-top: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 5%;
+    max-width: 1200px; /* Limit the width for larger screens */
+    margin: 0 auto; /* Center the section */
+}
+
+/* Image Section */
+.about-image {
+    flex: 1;
+    max-width: 40%; /* Image takes 40% of the container width */
+    margin-right: 40px; /* Spacing between image and text */
+}
+
+.about-image img {
+    width: 100%;
+    height: auto;
+    margin-right: 10px;
+    margin-top: 100;
+    max-height: 5700px; /* Limit the image height */
+    border-radius: 15px; /* Rounded corners for the image */
+    object-fit: cover; /* Ensure the image fits well */
+}
+
+/* Text Section */
+.about-content {
+    flex: 1;
+    max-width: 50%; /* Text takes 50% of the container width */
+}
+
+.about-content h1 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #e17979; /* Red color for heading */
+    margin-bottom: 30px;
+    text-align: left;
+    padding-left: 15px;
+    border-bottom: 2px solid #e17979; /* Underline effect */
+    display: inline-block; 
+}
+.about-content h2 {
+    font-size: 36px; /* Slightly smaller heading */
+    font-weight: bold;
+    font-family: 'Dancing Script', cursive;
+    margin-bottom: 20px;
+    color: #151314a0; /* Dark text for readability */
+}
+
+.about-content p {
+    font-size: 18px; /* Smaller font size for better fit */
+    line-height: 1.6; /* Improved line height for readability */
+    color: #44444497; /* Slightly lighter text color */
+    margin-bottom: 20px;
+}
+
+/* Read More Button */
+.read-more-btn {
+    padding: 12px 24px;
+    font-size: 18px;
+    background-color: #DFA0A0; /* Matching the theme color */
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.read-more-btn:hover {
+    background-color: #F7CAC9; /* Lighter shade on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .about-me {
+        flex-direction: column; /* Stack image and text on smaller screens */
+        text-align: center;
+        padding: 60px 5%;
+    }
+
+    .about-image {
+        max-width: 80%; /* Full width for image on smaller screens */
+        margin-right: 0;
+        margin-bottom: 30px; /* Spacing between image and text */
+    }
+
+    .about-content {
+        max-width: 100%; /* Full width for text on smaller screens */
+    }
+
+    .about-content h2 {
+        font-size: 30px; /* Smaller heading for mobile */
+    }
+
+    .about-content p {
+        font-size: 16px; /* Smaller text for mobile */
+    }
+}
+/* Social Media Section */
+.social-media {
+    padding: 60px 5%;
+    background: #F7CAC9; /* White background */
+    border-radius: 15px; /* Rounded corners */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    max-width: 1200px; /* Limit width */
+    margin: 50px auto; /* Centering */
+    border-left: 8px solid #e17979; /* Stylish red left border */
+    text-align: center; /* Center align content */
+}
+
+.social-media h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #e17979; /* Red color for heading */
+    margin-bottom: 30px;
+    text-align: left;
+    padding-left: 15px;
+    border-bottom: 2px solid #e17979; /* Underline effect */
+    display: inline-block; /* Makes underline fit text */
+}
+
+/* Social Links Container */
+.social-links {
+    display: flex;
+    justify-content: center; /* Center links horizontally */
+    flex-wrap: wrap; /* Wrap links for responsiveness */
+    gap: 30px; /* Space between links */
+}
+
+/* Social Link Styling */
+.social-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+    transition: transform 0.3s ease, color 0.3s ease; /* Smooth hover effect */
+}
+
+.social-link img {
+    width: 60px; /* Icon size */
+    height: 60px;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease; /* Smooth hover effect */
+}
+
+.social-link span {
+    font-size: 18px;
+    font-weight: bold;
+    color: #555;
+    transition: color 0.3s ease; /* Smooth hover effect */
+}
+
+/* Hover Effects */
+.social-link:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+}
+
+.social-link:hover img {
+    transform: scale(1.1); /* Slightly enlarge icon on hover */
+}
+
+.social-link:hover span {
+    color: #e17979; /* Red color on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .social-media {
+        padding: 40px 5%;
+    }
+
+    .social-media h2 {
+        font-size: 24px;
+    }
+
+    .social-links {
+        gap: 20px; /* Reduce space between links on small screens */
+    }
+
+    .social-link img {
+        width: 50px; /* Smaller icons on small screens */
+        height: 50px;
+    }
+
+    .social-link span {
+        font-size: 16px;
+    }
+}
+/* Footer Section */
+.footer {
+    background: rgba(255, 255, 255, 0.2);/* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Blur effect */
+    padding: 40px;
+    text-align: center;
+    border-top: 2px solid rgba(255, 255, 255, 0.3); /* Top border */
+    margin-top: 50px; /* Spacing above the footer */
+}
+
+.footer-nav {
+    margin-bottom: 10px; /* Spacing between links and copyright */
+}
+
+.footer-nav a {
+    margin: 0 15px; /* Spacing between links */
+    color: rgb(197, 152, 152); /* Link color */
+    text-decoration: none; /* Remove underline */
+    font-size: 20px;
+    margin-bottom: 100px;
+    transition: color 0.3s;
+}
+
+.footer-nav a:hover {
+    color: #F7CAC9; /* Hover color */
+}
+
+.footer-copyright p {
+    color: rgba(29, 28, 28, 0.622); /* Text color */
+    margin-top: 30px; /* Spacing above the text */
+    font-size: 14px;
+}
+
+</style>
