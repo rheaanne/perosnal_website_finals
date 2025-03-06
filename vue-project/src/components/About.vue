@@ -148,7 +148,7 @@ import r1 from '@/assets/images/r1.jpg';
       <a href="/index">Home</a>
       <a href="/reference">Reference</a>
       <a href="/about">About</a>
-      <a href="/contact">Contact</a>
+      <a href="contact">Contact</a>
     </div>
     <div class="footer-copyright">
       <p>Copyright © 2025 Rhea-Anne Danao | Powered by Rhea-Anne</p>
@@ -157,7 +157,6 @@ import r1 from '@/assets/images/r1.jpg';
 </template>
 
 <style scoped>
-/* General Styles */
 body {
   margin: 0;
   padding: 0;
@@ -169,7 +168,7 @@ body {
   line-height: 1.6;
 }
 
-/* CSS Animations */
+/* Keyframe Animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -197,7 +196,7 @@ body {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.1);
+    transform: scale(1.05);
   }
   100% {
     transform: scale(1);
@@ -233,8 +232,8 @@ body {
 
 .nav-links a:hover {
   color: #F7CAC9;
+  animation: pulse 0.6s;
 }
-
 /* About Me Section */
 .section1 {
   padding: 60px 5%;
