@@ -145,10 +145,10 @@ import r1 from '@/assets/images/r1.jpg';
   <!-- Footer Section -->
   <footer class="footer">
     <div class="footer-nav">
-      <a href="/index">Home</a>
-      <a href="/reference">Reference</a>
-      <a href="/about">About</a>
-      <a href="contact">Contact</a>
+      <router-link to="/">Home</router-link>
+      <router-link to="/reference">Reference</router-link>
+      <router-link to="/about">About</router-link>
+      <router-link to="/contact">Contact</router-link>
     </div>
     <div class="footer-copyright">
       <p>Copyright © 2025 Rhea-Anne Danao | Powered by Rhea-Anne</p>
@@ -751,4 +751,52 @@ body {
     text-align: center;
   }
 }
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .main-container {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+  .container h1 {
+    font-size: 36px;
+  }
+  .profile {
+    width: 300px;
+    height: 300px;
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    text-align: center;
+  }
+  .nav-links {
+    margin-top: 10px;
+  }
+  .profile {
+    width: 250px;
+    height: 250px;
+  }
+  .container h1 {
+    font-size: 32px;
+  }
+  .flex-gallery img {
+    width: 200px;
+    height: 200px;
+  }
+  .social-links {
+    gap: 20px;
+  }
+  .social-link img {
+    width: 50px;
+    height: 50px;
+  }
+  .social-link span {
+    font-size: 16px;
+  }
+}
 </style>
+

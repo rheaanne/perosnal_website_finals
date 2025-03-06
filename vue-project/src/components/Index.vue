@@ -102,7 +102,7 @@
   <!-- Footer Section -->
   <footer class="footer">
     <div class="footer-nav">
-      <router-link to="/index">Home</router-link>
+      <router-link to="/">Home</router-link>
       <router-link to="/reference">Reference</router-link>
       <router-link to="/about">About</router-link>
       <router-link to="/contact">Contact</router-link>
