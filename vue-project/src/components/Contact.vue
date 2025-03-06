@@ -163,7 +163,7 @@ async function submitForm() {
 </script>
 
 <style scoped>
-/* Your existing styles remain unchanged */
+/* General Styles */
 body {
   margin: 0;
   padding: 0;
@@ -175,6 +175,30 @@ body {
   line-height: 1.6;
 }
 
+/* CSS Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Navigation Bar */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -184,6 +208,7 @@ body {
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
   border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+  animation: fadeInDown 1s ease-out;
 }
 
 .logo {
@@ -204,6 +229,7 @@ body {
   color: #F7CAC9;
 }
 
+/* Contact Section */
 .contact-section {
   padding: 60px 5%;
   background: #fff;
@@ -212,6 +238,7 @@ body {
   max-width: 1200px;
   margin: 50px auto;
   border-left: 8px solid #e17979;
+  animation: fadeInUp 1s ease-out;
 }
 
 .contact-section h2 {
@@ -232,6 +259,7 @@ body {
   margin-bottom: 40px;
 }
 
+/* Contact Form */
 .contact-form {
   flex: 1;
   max-width: 600px;
@@ -289,6 +317,7 @@ body {
   background: #c94c4c;
 }
 
+/* Contact Info */
 .contact-info {
   flex: 1;
   max-width: 400px;
@@ -352,22 +381,16 @@ body {
   color: #e17979;
 }
 
+/* Map Container */
 .map-container {
   margin-top: 40px;
   border-radius: 10px;
   overflow: hidden;
+  animation: fadeInUp 1s ease-out 0.5s;
+  animation-fill-mode: both;
 }
 
-@media (max-width: 768px) {
-  .contact-container {
-    flex-direction: column;
-  }
-  .contact-form,
-  .contact-info {
-    max-width: 100%;
-  }
-}
-
+/* Footer Section */
 .footer {
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
@@ -386,7 +409,6 @@ body {
   color: rgb(197, 152, 152);
   text-decoration: none;
   font-size: 20px;
-  margin-bottom: 100px;
   transition: color 0.3s;
 }
 
@@ -398,5 +420,15 @@ body {
   color: rgba(29, 28, 28, 0.622);
   margin-top: 30px;
   font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .contact-container {
+    flex-direction: column;
+  }
+  .contact-form,
+  .contact-info {
+    max-width: 100%;
+  }
 }
 </style>
