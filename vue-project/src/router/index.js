@@ -4,8 +4,7 @@ import About from "@/components/About.vue";
 import Reference from "@/components/Reference.vue";
 import Contact from "@/components/Contact.vue";
 
-const routes = [
-  { path: "/", redirect: "/index" }, 
+const routes = [ 
   { path: "/index", component: Index },
   { path: "/about", component: About },
   { path: "/reference", component: Reference },
