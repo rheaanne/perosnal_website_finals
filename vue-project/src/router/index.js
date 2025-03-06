@@ -5,6 +5,7 @@ import Reference from "@/components/Reference.vue";
 import Contact from "@/components/Contact.vue";
 
 const routes = [
+  { path: "/", redirect: "/index" }, 
   { path: "/index", component: Index },
   { path: "/about", component: About },
   { path: "/reference", component: Reference },

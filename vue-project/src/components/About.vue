@@ -145,10 +145,10 @@ import r1 from '@/assets/images/r1.jpg';
   <!-- Footer Section -->
   <footer class="footer">
     <div class="footer-nav">
-      <router-link to="/index">Home</router-link>
-      <router-link to="/reference">Reference</router-link>
-      <router-link to="/about">About</router-link>
-      <router-link to="/contact">Contact</router-link>
+      <a href="/index">Home</a>
+      <a href="/reference">Reference</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
     </div>
     <div class="footer-copyright">
       <p>Copyright © 2025 Rhea-Anne Danao | Powered by Rhea-Anne</p>

@@ -83,10 +83,10 @@
   <!-- Footer Section -->
   <footer class="footer">
     <div class="footer-nav">
-      <router-link to="/index">Home</router-link>
-      <router-link to="/reference">Reference</router-link>
-      <router-link to="/about">About</router-link>
-      <router-link to="/contact">Contact</router-link>
+      <a href="index.html">Home</a>
+      <a href="reference.html">Reference</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
     </div>
     <div class="footer-copyright">
       <p>Copyright © 2025 Rhea-Anne Danao | Powered by Rhea-Anne</p>
