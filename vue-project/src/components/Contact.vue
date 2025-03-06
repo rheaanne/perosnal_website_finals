@@ -1,56 +1,43 @@
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router'; // Import useRouter
+import supabase from '@/supabase.js'; // Import Supabase
 
-// Navigation links
-const links = [
-  { id: 'section1', text: 'Section 1' },
-  { id: 'section2', text: 'Section 2' },
-  { id: 'section3', text: 'Section 3' },
-];
-
-// Contact form data
 const name = ref('');
 const email = ref('');
 const message = ref('');
+const successMessage = ref('');
+const errorMessage = ref('');
 
-// Social media links
-const socialLinks = ref([
-  'https://facebook.com',
-  'https://twitter.com',
-  'https://linkedin.com',
-]);
+const router = useRouter(); // Initialize router
 
-// Smooth scrolling to a section
-const scrollToSection = (id) => {
-  const section = document.getElementById(id);
-  if (section) {
-    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-};
-
-// Form validation
-const validateForm = () => {
+const submitMessage = async () => {
   if (!name.value || !email.value || !message.value) {
-    alert('Please fill out all fields.');
+    errorMessage.value = 'Please fill out all fields.';
     return;
   }
-  if (!validateEmail(email.value)) {
-    alert('Please enter a valid email address.');
+
+  const { error } = await supabase.from('messages').insert([
+    {
+      name: name.value,
+      email: email.value,
+      message: message.value,
+    },
+  ]);
+
+  if (error) {
+    errorMessage.value = 'Error submitting message. Try again.';
+    console.error(error);
     return;
   }
-  alert('Thank you for your message! I will get back to you soon.');
-  name.value = email.value = message.value = ''; // Reset form
-};
 
-// Email validation
-const validateEmail = (email) => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-};
+  successMessage.value = 'Message sent successfully!';
+  name.value = '';
+  email.value = '';
+  message.value = '';
 
-// Social link hover effect
-const hoverEffect = (enlarge, event) => {
-  event.target.style.transform = enlarge ? 'scale(1.1)' : 'scale(1)';
+  // ✅ Navigate to Index.vue
+  router.push('/');
 };
 
 </script>
@@ -72,18 +59,19 @@ const hoverEffect = (enlarge, event) => {
         <!-- Contact Form -->
         <div class="contact-form">
             <h3>Send Me a Message</h3>
-            <form action="#" method="POST">
+            <form @submit.prevent="submitMessage">
+
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    <input type="text" id="name" v-model="name" placeholder="Your Name" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    <input type="email" id="email" v-model="email" placeholder="Your Email" required>
                 </div>
                 <div class="form-group">
                     <label for="message">Message</label>
-                    <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
+                    <textarea id="message" v-model="message" placeholder="Your Message" rows="5" required></textarea>
                 </div>
                 <button type="submit">Send Message</button>
             </form>
